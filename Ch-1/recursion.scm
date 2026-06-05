@@ -9,6 +9,42 @@
 (fib 5)
 (fib 6)
 
+(define (new-fib n) 
+  (fib-iter 1 0 n))
+
+(define (fib-iter a b count)
+  (if (= count 0)
+      b
+      (fib-iter (+ a b) a (- count 1))))
+
+(new-fib 4)
+(new-fib 5)
+(new-fib 6)
+
+; 例子：找零钱
+(define (count-change amount)
+  (cc amount 5))
+
+(define (cc amount kinds-of-coins)
+  (cond ((= amount 0) 1)
+        ((or (< amount 0) 
+             (= kinds-of-coins 0)) 
+         0)
+        (else 
+         (+ (cc amount (- kinds-of-coins 1))
+            (cc (- amount (first-denomination 
+                           kinds-of-coins))
+                kinds-of-coins)))))
+
+(define (first-denomination kinds-of-coins)
+  (cond ((= kinds-of-coins 1) 1)
+        ((= kinds-of-coins 2) 5)
+        ((= kinds-of-coins 3) 10)
+        ((= kinds-of-coins 4) 25)
+        ((= kinds-of-coins 5) 50)))
+
+(count-change 100)
+
 ; sum from a to b, integers
 (define (sum-int a b)
   (if (> a b)
